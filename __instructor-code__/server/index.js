@@ -11,13 +11,13 @@ app.use( bodyParser.json() );
 app.use( express.static( `${__dirname}/../build` ) );
 app.use(devMtnSession);
 app.use(createInitialSession);
-app.use((req, res, next)=>{
-    if(req.method === 'PUT' || req.method === 'POST'){
-        filter(req, res, next)
-    }else {
-        next();
-    }
-})
+app.use((req, res, next) => {
+  if (req.method === 'PUT' || req.method === 'POST') {
+    filter(req, res, next);
+  } else {
+    next();
+  }
+});
 
 const messagesBaseUrl = "/api/messages";
 app.post( messagesBaseUrl, mc.create );
@@ -25,7 +25,6 @@ app.get( messagesBaseUrl, mc.read );
 app.put( `${messagesBaseUrl}`, mc.update );
 app.delete( `${messagesBaseUrl}`, mc.delete );
 app.get(`${messagesBaseUrl}/history`, mc.history);
-
 
 const port = process.env.PORT || 9000
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
